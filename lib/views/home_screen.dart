@@ -24,7 +24,35 @@ class HomeScreen extends StatelessWidget {
                           image: NetworkImage(banners[index].thumbnail),
                           fit: BoxFit.cover)
                   ),
+                  child: DefaultTextStyle(
+                    style: TextStyle(color: Colors.white,fontSize: 20),
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color.fromRGBO(0, 0, 0, 0.3)
+                          ),
 
+                        ),
+                        Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text('Title'.toUpperCase()),
+                              Container(
+                                width: 200,
+                                child: Text(
+                                  banners[index].title.toUpperCase(),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 );
               },
             ),
