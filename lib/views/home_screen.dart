@@ -21,9 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             margin: EdgeInsets.symmetric(vertical: 16.0),
             height: 160,
-            decoration: BoxDecoration(color: Colors.orange[100]),
+            //   decoration: BoxDecoration(color: Colors.orange[100]),
             child: PageView.builder(
-              onPageChanged: (index){
+              onPageChanged: (index) {
                 setState(() {
                   selectedIndex = index;
                 });
@@ -31,15 +31,27 @@ class _HomeScreenState extends State<HomeScreen> {
               controller: PageController(viewportFraction: 0.9),
               itemCount: banners.length,
               itemBuilder: (context, index) {
-                return BannerItem(appbanners: banners[index]);
+                var bannerItem = banners[index];
+                var _scale = selectedIndex == index ? 1.0 : 0.8;
+                return TweenAnimationBuilder(
+                  duration: Duration(microseconds: 350),
+                  tween: Tween(begin: _scale, end: _scale),
+                  curve: Curves.ease,
+                  child: BannerItem(appbanners: bannerItem),
+                  builder: (context, value, child) {
+                    return Transform.scale(scale: value, child: child);
+                  },
+                );
               },
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ...List.generate(banners.length,
-                  (index) => Indicator(isActive : selectedIndex == index ? true : false))
+              ...List.generate(
+                  banners.length,
+                  (index) => Indicator(
+                      isActive: selectedIndex == index ? true : false))
             ],
           )
         ],
